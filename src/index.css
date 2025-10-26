@@ -1,0 +1,494 @@
+:root {
+  --primary: #22c55e;          
+  --primary-dark: #16a34a;
+  --muted: #666;
+  --card: #f7f7f8;
+  --bg: #ffffff;
+  --text: #111;
+  --accent: #ef4444;           
+  --shadow: rgba(0,0,0,0.1);
+  --shadow-hover: rgba(0,0,0,0.2);
+}
+
+/* Global styles */
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea {
+  font-family: inherit;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--primary);
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+.navbar .logo { font-weight: 700; font-size: 1.5rem; }
+.navbar a { margin-left: 16px; font-weight: 500; }
+.navbar a:hover { text-decoration: underline; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 16px;
+  background: #f1f5f9;
+  color: #444;
+  font-size: 0.9rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Main container */
+.app { display: flex; flex-direction: column; min-height: 100vh; padding-top: 80px; }
+.main { flex: 1; padding: 20px; max-width: 1100px; margin: 0 auto; }
+
+/* Home layout */
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 50px;
+  align-items: start;
+}
+@media (max-width:900px){ .home-grid{ grid-template-columns: 1fr; gap:16px; } }
+aside { position: sticky; top: 100px; }
+
+/* Landing Page (keep as earlier shared) */
+.landing {
+  text-align: center;
+  padding: 120px 20px;
+  background: 
+    linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+    url('/assets/landing-bg.jpg') no-repeat center center;
+  background-size: cover;
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing::before {
+  content: "💧💉🩸";
+  position: absolute;
+  top: -60px;
+  left: 0;
+  width: 100%;
+  font-size: 3rem;
+  opacity: 0.05;
+  animation: floatDrops 12s linear infinite;
+}
+
+.landing-header h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 20px;
+  font-weight: 800;
+  color: #065f46;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.landing-header p {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  margin-bottom: 40px;
+  color: #065f46cc;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.landing-buttons button {
+  margin: 0 12px;
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s;
+  animation: fadeIn 1.4s ease-in-out;
+}
+.landing-buttons button:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px var(--shadow-hover);
+}
+
+.landing-info { display: flex; justify-content: center; gap: 24px; margin-top: 60px; flex-wrap: wrap; }
+.info-card {
+  width: 280px;
+  background: #ffffffdd;
+  color: var(--text);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px var(--shadow-hover);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 1.6s ease-in-out;
+  position: relative;
+}
+.info-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px var(--shadow-hover); }
+.info-card::before {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 60px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  margin-bottom: 12px;
+}
+
+/* Cards, Forms, Resource & Bookings (from second CSS) */
+
+/* Cards */
+.card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 8px 18px var(--shadow-hover); }
+
+/* Resource Cards */
+.resource-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.resource-card.clickable:hover {
+  background-color: #f0fdf4;
+  border-color: #22c55e;
+  transform: translateY(-2px);
+}
+.resource-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.resource-name { font-size: 16px; font-weight: 600; color: #111827; }
+.blood-icon { font-size: 18px; }
+.resource-card-body { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #4b5563; }
+.resource-phone { font-size: 13px; color: #2563eb; }
+.resource-distance { margin-top: 8px; font-size: 13px; color: #22c55e; font-weight: 500; text-align: right; }
+
+/* Forms */
+.form-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.form-row input, .form-row select, .form-row textarea {
+  flex: 1; padding: 12px; border: 1px solid #dcdcdc; border-radius: 8px; font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 8px rgba(34,197,94,0.3); }
+.form-actions { display: flex; gap: 8px; justify-content: flex-end; }
+button { padding: 12px 28px; border-radius: 10px; font-weight: 600; border: none; background: var(--primary); color: white; cursor: pointer; }
+button:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 6px 15px var(--shadow-hover); }
+
+/* My Bookings */
+
+/* Animations */
+@keyframes fadeIn { from{opacity:0; transform: translateY(15px);} to{opacity:1; transform: translateY(0);} }
+@keyframes pulse { 0%{transform:scale(1);}50%{transform:scale(1.2);}100%{transform:scale(1);} }
+@keyframes floatDrops { 0%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(20px) rotate(10deg);}100%{transform:translateY(0) rotate(0deg);} }
+@keyframes slideDown { from{opacity:0; transform:translateY(-20px);} to{opacity:1; transform:translateY(0);} }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 8px; }
+::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 8px; }
+
+/* Utility classes */
+.text-center { text-align: center; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+
+/* My Bookings Section */
+.bookings-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin-top: 24px;           /* below Health Tips */
+  max-height: 400px;           /* scrollable */
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.bookings-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Booking Input Form */
+.booking-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.booking-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+}
+.booking-form button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.booking-form button:hover {
+  background: var(--primary-dark);
+}
+
+/* Bookings List */
+.bookings-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bookings-list li {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  font-size: 0.95rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.bookings-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+/* Scrollbar */
+.bookings-card::-webkit-scrollbar {
+  width: 6px;
+}
+.bookings-card::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 3px;
+}
+.bookings-card::-webkit-scrollbar-track {
+  background-color: #f3f4f6;
+  border-radius: 3px;
+}
+
+/* Resources Column */
+.resources-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;       /* ensures it takes full space in left column */
+  max-width: 1000px;
+}
+
+/* Resources Header */
+.resources-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--primary-dark);
+}
+
+.resources-header .small {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* Filter Controls */
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+.filter-controls label {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.filter-controls select,
+.filter-controls input[type="number"] {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+.filter-controls select:hover,
+.filter-controls input[type="number"]:hover,
+.filter-controls select:focus,
+.filter-controls input[type="number"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 6px rgba(34,197,94,0.2);
+  outline: none;
+}
+
+/* Resources List */
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 500px; /* Scrollable if too many */
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Individual Resource Card */
+.resource-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.resource-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  border-color: var(--primary);
+}
+
+.resource-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resource-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #111827;
+}
+
+.blood-icon {
+  font-size: 1.2rem;
+}
+
+.resource-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.resource-phone {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.resource-distance {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Scrollbar for Resources List */
+.resources-list::-webkit-scrollbar {
+  width: 6px;
+}
+.resources-list::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 3px;
+}
+.resources-list::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 3px;
+}
+
+/* Fade-In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Filter Inputs (Select & Number) */
+.filter-controls select,
+.filter-controls input[type="number"] {
+  padding: 10px 14px;             /* slightly bigger padding for comfort */
+  border-radius: 10px;            /* smoother corners */
+  border: 1.5px solid #dcdcdc;    /* slightly thicker for a modern look */
+  font-size: 0.95rem;             /* slightly larger text for readability */
+  background: #fff;                /* clean white background */
+  color: #111;                     /* dark text for contrast */
+  transition: all 0.3s ease;      /* smooth transitions */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* subtle shadow for depth */
+}
+
+/* Hover state */
+.filter-controls select:hover,
+.filter-controls input[type="number"]:hover {
+  border-color: var(--primary);
+  box-shadow: 0 2px 6px rgba(34,197,94,0.15);
+}
+
+/* Focus state */
+.filter-controls select:focus,
+.filter-controls input[type="number"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 8px rgba(34,197,94,0.25);
+  outline: none;
+  transform: translateY(-1px);     /* tiny lift on focus */
+}
+
+/* Optional: Smooth color transition for border & shadow */
+.filter-controls select,
+.filter-controls input[type="number"] {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s;
+}
+.modal-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+  animation: slideDown 0.3s;
+}
