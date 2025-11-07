@@ -1,0 +1,224 @@
+{
+  "info": {
+    "name": "Community Medical Services API",
+    "description": "Postman collection for testing backend APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:5000" },
+    { "key": "token", "value": "" },
+    { "key": "admin_token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"user\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "{{base_url}}/api/auth/login", "host": ["{{base_url}}"], "path": ["api", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/auth/profile", "host": ["{{base_url}}"], "path": ["api", "auth", "profile"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/api/users", "host": ["{{base_url}}"], "path": ["api", "users"] }
+          }
+        },
+        {
+          "name": "Get User by ID (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/api/users/:id", "host": ["{{base_url}}"], "path": ["api", "users", ":id"] }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"John Updated\",\n  \"email\": \"johnupdated@example.com\"\n}" },
+            "url": { "raw": "{{base_url}}/api/users/profile", "host": ["{{base_url}}"], "path": ["api", "users", "profile"] }
+          }
+        },
+        {
+          "name": "Delete User (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{admin_token}}" }],
+            "url": { "raw": "{{base_url}}/api/users/:id", "host": ["{{base_url}}"], "path": ["api", "users", ":id"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Medical Services",
+      "item": [
+        {
+          "name": "Create Medical Service (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"General Checkup\",\n  \"description\": \"Basic health checkup service\"\n}" },
+            "url": { "raw": "{{base_url}}/api/medical-services", "host": ["{{base_url}}"], "path": ["api", "medical-services"] }
+          }
+        },
+        {
+          "name": "Get All Medical Services",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/medical-services", "host": ["{{base_url}}"], "path": ["api", "medical-services"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Locations",
+      "item": [
+        {
+          "name": "Create Location (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"City Clinic\",\n  \"address\": \"123 Main Street\",\n  \"service_id\": \"<service_id>\"\n}" },
+            "url": { "raw": "{{base_url}}/api/locations", "host": ["{{base_url}}"], "path": ["api", "locations"] }
+          }
+        },
+        {
+          "name": "Get All Locations",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/locations", "host": ["{{base_url}}"], "path": ["api", "locations"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Service Offerings",
+      "item": [
+        {
+          "name": "Create Offering (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"service_id\": \"<service_id>\",\n  \"location_id\": \"<location_id>\",\n  \"price\": 500\n}" },
+            "url": { "raw": "{{base_url}}/api/offerings", "host": ["{{base_url}}"], "path": ["api", "offerings"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Availability",
+      "item": [
+        {
+          "name": "Set Availability (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{admin_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"offering_id\": \"<offering_id>\",\n  \"date\": \"2025-07-30\",\n  \"slots\": 10\n}" },
+            "url": { "raw": "{{base_url}}/api/availability", "host": ["{{base_url}}"], "path": ["api", "availability"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointments",
+      "item": [
+        {
+          "name": "Book Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"offering_id\": \"<offering_id>\",\n  \"date\": \"2025-07-30\"\n}" },
+            "url": { "raw": "{{base_url}}/api/appointments", "host": ["{{base_url}}"], "path": ["api", "appointments"] }
+          }
+        },
+        {
+          "name": "Get User Appointments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/appointments", "host": ["{{base_url}}"], "path": ["api", "appointments"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Medicine Requests",
+      "item": [
+        {
+          "name": "Request Medicine",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"service_id\": \"<service_id>\",\n  \"medicine_name\": \"Paracetamol\"\n}" },
+            "url": { "raw": "{{base_url}}/api/medicine-requests", "host": ["{{base_url}}"], "path": ["api", "medicine-requests"] }
+          }
+        },
+        {
+          "name": "Get User Medicine Requests",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/medicine-requests", "host": ["{{base_url}}"], "path": ["api", "medicine-requests"] }
+          }
+        }
+      ]
+    }
+  ]
+}
